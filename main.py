@@ -33,7 +33,7 @@ def start(message):
 
 @bot.message_handler(commands=['d2roll'])
 def start(message):
-    numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
+    numbers = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12']
     x = random.choice(numbers)
     bot.send_message(message.chat.id, f"Выпало - {x}")
 
@@ -109,7 +109,7 @@ def answer(message):
     if message.text.lower() == "хочу новости":
         bot.send_message(message.chat.id, 'Тогда тебе сюда – https://mtuci.ru/')
     elif message.text.lower() == "покажи работы":
-        bot.send_message(message.chat.id, 'Треугольник - https://github.com/EKhudoborodov/Triangle\nПереводчик - https://github.com/EKhudoborodov/Project1\nФласк БД - https://github.com/EKhudoborodov/MyWebApp')
+        bot.send_message(message.chat.id, 'Треугольник - https://github.com/EKhudoborodov/Triangle\nПереводчик - https://github.com/EKhudoborodov/Project1\nФласк БД - https://github.com/EKhudoborodov/MyWebApp\nТелеграмБот - https://github.com/EKhudoborodov/Simple_Bot')
     elif message.text.lower() == "включи телевизор":
         bot.send_message(message.chat.id, 'Включаю - https://www.youtube.com/')
     elif message.text.lower() == "спасибо":
@@ -127,6 +127,7 @@ def answer(message):
             return num
         def convert_message(text):
             i, n = 0, 0
+
             for char in text:
                 if char == '1':
                     n += 10 ** i
@@ -173,7 +174,7 @@ def answer(message):
                     sim = char
                     continue
                 bot.send_message(message.chat.id, "Повторите, я не смог вас понять. =(")
-                break
+                return False
             second = convert_number(n, i)
             if sim == '+':
                 res = first + second
@@ -184,6 +185,8 @@ def answer(message):
             elif sim == '/':
                 res = first / second
             return res
-        bot.send_message(message.chat.id, f"Результат - {convert_message(message.text)}")
+        z = convert_message(message.text)
+        if z != False:
+            bot.send_message(message.chat.id, f"Результат - {z}")
 
 bot.polling(none_stop=True)
