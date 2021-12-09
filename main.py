@@ -40,6 +40,7 @@ def start(message):
 @bot.message_handler(commands=['calculate'])
 def start_message(message):
     bot.send_message(message.chat.id, 'Что нужно посчитать?')
+    """
 def convert_number(n, i):
     first = 0
     j = i - 1
@@ -103,6 +104,7 @@ def convert_message(text):
     return res
 def answer(message):
     bot.send_message(message.chat.id, f"Результат - {convert_message(message.text)}")
+    """
 
 @bot.message_handler(content_types=['text'])
 def answer(message):
@@ -113,10 +115,16 @@ def answer(message):
     elif message.text.lower() == "включи телевизор":
         bot.send_message(message.chat.id, 'Включаю - https://www.youtube.com/')
     elif message.text.lower() == "спасибо":
-        bot.send_message(message.chat.id, 'https://youtu.be/ZIYoUx8NZts')
+        bot.send_message(message.chat.id, 'Что ты! Тебе спасибо!🙃')
     elif message.text.lower() == "погода" or message.text.lower() == "прогноз погоды":
         bot.send_message(message.chat.id, 'Прогноз погоды в Москве - https://yandex.ru/pogoda/?lat=55.75581741&lon=37.61764526')
     else:
+        def rewrite_string(text):
+            string = ''
+            for char in text:
+                if char == '1' or char == '2' or char == '3' or char == '4' or char == '5' or char == '6' or char == '7' or char == '8' or char == '9' or char == '0' or char == '+' or char == '-' or char == '*' or char == '/':
+                    string += char
+            return string
         def convert_number(n, i):
             num = 0
             j = i - 1
@@ -126,65 +134,71 @@ def answer(message):
                 n = int(n / 10)
             return num
         def convert_message(text):
-            i, n = 0, 0
-
-            for char in text:
-                if char == '1':
-                    n += 10 ** i
-                    i += 1
-                    continue
-                if char == '2':
-                    n += 2 * (10 ** i)
-                    i += 1
-                    continue
-                if char == '3':
-                    n += 3 * (10 ** i)
-                    i += 1
-                    continue
-                if char == '4':
-                    n += 4 * (10 ** i)
-                    i += 1
-                    continue
-                if char == '5':
-                    n += 5 * (10 ** i)
-                    i += 1
-                    continue
-                if char == '6':
-                    n += 6 * (10 ** i)
-                    i += 1
-                    continue
-                if char == '7':
-                    n += 7 * (10 ** i)
-                    i += 1
-                    continue
-                if char == '8':
-                    n += 8 * (10 ** i)
-                    i += 1
-                    continue
-                if char == '9':
-                    n += 9 * (10 ** i)
-                    i += 1
-                    continue
-                if char == '0':
-                    i += 1
-                    continue
-                if char == '+' or char == '-' or char == '*' or char == '/':
-                    first = convert_number(n, i)
-                    i, n, zeroes = 0, 0, 0
-                    sim = char
-                    continue
+            text = rewrite_string(text)
+            if text == '':
                 bot.send_message(message.chat.id, "Повторите, я не смог вас понять. =(")
                 return False
-            second = convert_number(n, i)
-            if sim == '+':
-                res = first + second
-            elif sim == '-':
-                res = first - second
-            elif sim == '*':
-                res = first * second
-            elif sim == '/':
-                res = first / second
-            return res
+            else:
+                i, n = 0, 0
+                sim = ''
+                for char in text:
+                    if char == '1':
+                        n += 10 ** i
+                        i += 1
+                        continue
+                    if char == '2':
+                        n += 2 * (10 ** i)
+                        i += 1
+                        continue
+                    if char == '3':
+                        n += 3 * (10 ** i)
+                        i += 1
+                        continue
+                    if char == '4':
+                        n += 4 * (10 ** i)
+                        i += 1
+                        continue
+                    if char == '5':
+                        n += 5 * (10 ** i)
+                        i += 1
+                        continue
+                    if char == '6':
+                        n += 6 * (10 ** i)
+                        i += 1
+                        continue
+                    if char == '7':
+                        n += 7 * (10 ** i)
+                        i += 1
+                        continue
+                    if char == '8':
+                        n += 8 * (10 ** i)
+                        i += 1
+                        continue
+                    if char == '9':
+                        n += 9 * (10 ** i)
+                        i += 1
+                        continue
+                    if char == '0':
+                        i += 1
+                        continue
+                    if char == '+' or char == '-' or char == '*' or char == '/':
+                        first = convert_number(n, i)
+                        i, n, zeroes = 0, 0, 0
+                        sim = char
+                second = convert_number(n, i)
+                if sim != '':
+                    if sim == '+':
+                        res = first + second
+                    elif sim == '-':
+                        res = first - second
+                    elif sim == '*':
+                        res = first * second
+                    elif sim == '/':
+                        res = first / second
+                    return res
+                else:
+                    bot.send_message(message.chat.id, "Напишите число, затем действие, которое вы хотите выполнить, а затем второе число.\nПример: 123+234")
+                    return False
         z = convert_message(message.text)
         if z != False:
             bot.send_message(message.chat.id, f"Результат - {z}")
