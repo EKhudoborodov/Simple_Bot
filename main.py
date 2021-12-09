@@ -111,7 +111,7 @@ def answer(message):
     if message.text.lower() == "хочу новости":
         bot.send_message(message.chat.id, 'Тогда тебе сюда – https://mtuci.ru/')
     elif message.text.lower() == "покажи работы":
-        bot.send_message(message.chat.id, 'Треугольник - https://github.com/EKhudoborodov/Triangle\nПереводчик - https://github.com/EKhudoborodov/Project1\nФласк БД - https://github.com/EKhudoborodov/MyWebApp\nТелеграмБот - https://github.com/EKhudoborodov/Simple_Bot')
+        bot.send_message(message.chat.id, 'Треугольник - https://github.com/EKhudoborodov/Triangle\nПереводчик - https://github.com/EKhudoborodov/Translator\nФласк БД - https://github.com/EKhudoborodov/MyWebApp\nТелеграмБот - https://github.com/EKhudoborodov/Simple_Bot')
     elif message.text.lower() == "включи телевизор":
         bot.send_message(message.chat.id, 'Включаю - https://www.youtube.com/')
     elif message.text.lower() == "спасибо":
