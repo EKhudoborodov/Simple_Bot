@@ -121,9 +121,14 @@ def answer(message):
     else:
         def rewrite_string(text):
             string = ''
+            sim = 0
             for char in text:
                 if char == '1' or char == '2' or char == '3' or char == '4' or char == '5' or char == '6' or char == '7' or char == '8' or char == '9' or char == '0' or char == '+' or char == '-' or char == '*' or char == '/':
-                    string += char
+                    if (char == '+' or char == '-' or char == '*' or char == '/') & (sim == 0):
+                        sim = 1
+                        string += char
+                    elif (char != '+') & (char != '-') & (char != '*') & (char != '/'):
+                        string += char
             return string
         def convert_number(n, i):
             num = 0
